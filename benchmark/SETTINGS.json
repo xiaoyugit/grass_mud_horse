@@ -1,6 +1,6 @@
 {
-    "train_data_path": "../train/Train_small.csv",
+    "train_data_path": "../train/Train.csv",
     "valid_data_path": "../test/Valid.csv",
     "model_path": "../benchmark/random_forest.pickle",
-    "prediction_path": "../benchmark/svc_benchmark.csv"
+    "prediction_path": "../benchmark/random_forest_benchmark.csv"
 }
