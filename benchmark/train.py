@@ -18,7 +18,7 @@ def my_vectorizer(type):
             }
     return box[type]
 
-def feature_extractor(data):
+def feature_extractor():
     features = [('FullDescription-Bag of Words', 'FullDescription', my_vectorizer("text")),
                 ('Title-Bag of Words', 'Title', my_vectorizer("text")),
                 #('LocationRaw-Bag of Words', 'LocationRaw', my_vectorizer("text")),
@@ -32,13 +32,18 @@ def feature_extractor(data):
     return combined
 
 def get_pipeline(data):
-    features = feature_extractor(data)
+    features = feature_extractor()
+    features.fit(data)
+    voc_set = features.get_vocabulary()
+    for k in voc_set:
+        print k + ':'
+        print ','.join(voc_set[k])
     steps = [("extract_features", features),
-             ("classify", RandomForestRegressor(n_estimators=50, 
+             ("classify", RandomForestRegressor(n_estimators=30, 
                                                 verbose=2,
                                                 n_jobs=3,
                                                 min_samples_split=30,
-                                                random_state=3465343))]
+                                                random_state=3465344))]
              #("classify", SVC())]
              #("classify", LinearRegression())]
     return Pipeline(steps)

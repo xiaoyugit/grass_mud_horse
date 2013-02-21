@@ -9,7 +9,7 @@ class FeatureMapper:
     def fit(self, X, y=None):
         for feature_name, column_name, extractor in self.features:
             extractor.fit(X[column_name], y)
-
+            
     def transform(self, X):
         extracted = []
         for feature_name, column_name, extractor in self.features:
@@ -22,7 +22,13 @@ class FeatureMapper:
             return np.concatenate(extracted, axis=1)
         else: 
             return extracted[0]
-
+            
+    def get_vocabulary(self):
+        voc_set = {}
+        for feature_name, column_name, extractor in self.features:
+            voc_set[column_name] = extractor.get_feature_names()
+        return voc_set 
+    
     def fit_transform(self, X, y=None):
         extracted = []
         for feature_name, column_name, extractor in self.features:

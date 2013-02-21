@@ -1,21 +1,14 @@
 import os
 import re
-from collections import Counter
+import nltk
 
 def main():
-    fin = os.popen("awk -F',' '{print $3}' ../train/Train.csv").readlines()
-    text = map(lambda x: x.strip(), fin)
-    words = []
-    for row in text:
-        for word in row.split(' '):
-            #drop the irrelavant symbols
-            word = re.sub(r'[^\w]','',word)
-            words.append(word)
-    wordCount = Counter(words)
-    
-    with open('term_freq.txt','w') as fout:
-       for k in sorted(wordCount, key=wordCount.get, reverse=True):
-           fout.write(k+'\t'+str(wordCount[k])+'\n')
-           
+    fin = os.popen("awk -F',' '{print $3}' ~/Workspace/grass_mud_horse/train/Train_small.csv").readlines()
+    fin = ' '.join(map(lambda x: x.strip(), fin))
+    tokens = nltk.word_tokenize(fin)
+    text = nltk.Text(tokens)
+    freq = nltk.FreqDist(text)
+    print text.collocations(20)
+    freq.plot(30)
 if __name__ == "__main__":
     main()
