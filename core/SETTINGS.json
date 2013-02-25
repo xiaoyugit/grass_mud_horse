@@ -1,0 +1,6 @@
+{
+    "train_data_path": "../train/Train_rev1.csv",
+    "valid_data_path": "../test/Valid_rev1.csv",
+    "model_path": "../core/models/",
+    "prediction_path": "../core/models/gradient_boosting_score.csv"
+}
